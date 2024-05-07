@@ -15,5 +15,5 @@ ADD https://worldtimeapi.org/api/ip time.tmp
 # Clone the repo to get all resources and history
 RUN git clone https://github.com/jlanej/loma.git
 WORKDIR loma
-RUN SETUP.sh
+RUN ./SETUP.sh
 CMD ["/bin/bash"]
