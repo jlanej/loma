@@ -21,5 +21,4 @@ WORKDIR /app
 # Clone the repo to get all resources and history
 RUN git clone https://github.com/jlanej/loma.git
 WORKDIR loma
-RUN ./SETUP.sh
 CMD ["/bin/bash"]
