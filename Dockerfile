@@ -3,7 +3,6 @@ FROM ubuntu:22.04
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
 
-https://github.com/ddiez/mafft/blob/master/Dockerfile
 RUN apt-get update && apt-get -y upgrade && \
 apt-get install -y build-essential curl wget gnupg libcurl4-openssl-dev git r-base r-base-dev && \
 apt-get clean && apt-get purge && \
