@@ -18,12 +18,15 @@ RUN curl https://mafft.cbrc.jp/alignment/software/mafft-$VERSION-with-extensions
     && tar zxvf mafft-$VERSION-with-extensions-src.tgz
     
 RUN cd mafft-$VERSION-with-extensions/core && \
-    sed -e "s/^PREFIX = \/usr\/local/PREFIX = \/opt/" Makefile > Makefile.tmp && \
-    mv Makefile.tmp Makefile && \
-    make clean && make && make install && \
-    cd /tmp && rm -rf mafft-$VERSION-with-extensions && \
+    sed -e "s/^PREFIX = \/usr\/local/PREFIX = \/opt/" Makefile > Makefile.tmp
+    
+RUN  mv Makefile.tmp Makefile && \
+    make clean && make && make install
+    
+RUN cd /tmp && rm -rf mafft-$VERSION-with-extensions && \
     apt-get purge -y build-essential curl && \
     apt-get autoremove -y
+    
 ENV PATH /opt/bin:$PATH
 
 # Prevent caching the git clone TODO this seems like it could be done differently 
