@@ -17,8 +17,9 @@ WORKDIR /tmp
 RUN curl https://mafft.cbrc.jp/alignment/software/mafft-$VERSION-with-extensions-src.tgz > mafft-$VERSION-with-extensions-src.tgz \
     && tar zxvf mafft-$VERSION-with-extensions-src.tgz
     
-RUN cd mafft-$VERSION-with-extensions/core && \
-    sed -e "s/^PREFIX = \/usr\/local/PREFIX = \/opt/" Makefile > Makefile.tmp
+WORKDIR mafft-$VERSION-with-extensions/core
+
+RUN sed -e "s/^PREFIX = \/usr\/local/PREFIX = \/opt/" Makefile > Makefile.tmp
     
 RUN  mv Makefile.tmp Makefile && \
     make clean && make && make install
