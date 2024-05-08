@@ -14,7 +14,7 @@ ENV VERSION=7.407
 #https://github.com/ddiez/mafft/blob/master/Dockerfile
 ## Install MAFFT.
 WORKDIR /tmp
-RUN curl https://mafft.cbrc.jp/alignment/software/mafft-$VERSION-with-extensions-src.tgz > mafft-$VERSION-with-extensions-src.tgz && \
+RUN curl https://mafft.cbrc.jp/alignment/software/mafft-$VERSION-with-extensions-src.tgz > mafft-$VERSION-with-extensions-src.tgz \
     && tar zxvf mafft-$VERSION-with-extensions-src.tgz
     
 RUN cd mafft-$VERSION-with-extensions/core && \
