@@ -3,11 +3,27 @@ FROM ubuntu:22.04
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
 
+https://github.com/ddiez/mafft/blob/master/Dockerfile
 RUN apt-get update && apt-get -y upgrade && \
-apt-get install -y wget gnupg libcurl4-openssl-dev git r-base r-base-dev && \
+apt-get install -y build-essential curl wget gnupg libcurl4-openssl-dev git r-base r-base-dev && \
 apt-get clean && apt-get purge && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+ENV VERSION=7.407
+
+
+#https://github.com/ddiez/mafft/blob/master/Dockerfile
+## Install MAFFT.
+RUN curl https://mafft.cbrc.jp/alignment/software/mafft-$VERSION-with-extensions-src.tgz > /tmp/mafft-$VERSION-with-extensions-src.tgz && \
+    cd /tmp && tar zxvf mafft-$VERSION-with-extensions-src.tgz && \
+    cd /tmp/mafft-$VERSION-with-extensions/core && \
+    sed -e "s/^PREFIX = \/usr\/local/PREFIX = \/opt/" Makefile > Makefile.tmp && \
+    mv Makefile.tmp Makefile && \
+    make clean && make && make install && \
+    cd /tmp && rm -rf mafft-$VERSION-with-extensions && \
+    apt-get purge -y build-essential curl && \
+    apt-get autoremove -y
+ENV PATH /opt/bin:$PATH
 
 # Prevent caching the git clone TODO this seems like it could be done differently 
 ADD https://worldtimeapi.org/api/ip time.tmp
@@ -17,6 +33,7 @@ WORKDIR /app
 RUN git clone https://github.com/lh3/minimap2
 WORKDIR minimap2
 RUN make
+ENV PATH /app/minimap2:$PATH
 WORKDIR /app
 # Clone the repo to get all resources and history
 RUN git clone https://github.com/jlanej/loma.git
