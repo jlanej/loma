@@ -13,9 +13,11 @@ ENV VERSION=7.407
 
 #https://github.com/ddiez/mafft/blob/master/Dockerfile
 ## Install MAFFT.
-RUN curl https://mafft.cbrc.jp/alignment/software/mafft-$VERSION-with-extensions-src.tgz > /tmp/mafft-$VERSION-with-extensions-src.tgz && \
-    cd /tmp && tar zxvf mafft-$VERSION-with-extensions-src.tgz && \
-    cd /tmp/mafft-$VERSION-with-extensions/core && \
+WORKDIR /tmp
+RUN curl https://mafft.cbrc.jp/alignment/software/mafft-$VERSION-with-extensions-src.tgz > mafft-$VERSION-with-extensions-src.tgz && \
+    && tar zxvf mafft-$VERSION-with-extensions-src.tgz
+    
+RUN cd mafft-$VERSION-with-extensions/core && \
     sed -e "s/^PREFIX = \/usr\/local/PREFIX = \/opt/" Makefile > Makefile.tmp && \
     mv Makefile.tmp Makefile && \
     make clean && make && make install && \
