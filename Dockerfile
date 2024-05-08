@@ -8,7 +8,7 @@ apt-get install -y build-essential curl wget gnupg libcurl4-openssl-dev git r-ba
 apt-get clean && apt-get purge && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENV VERSION=7.407
+ENV VERSION=7.525
 
 
 #https://github.com/ddiez/mafft/blob/master/Dockerfile
