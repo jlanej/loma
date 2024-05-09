@@ -42,5 +42,4 @@ ENV PATH="/app/minimap2:$PATH"
 WORKDIR /app
 # Clone the repo to get all resources and history
 RUN git clone https://github.com/jlanej/loma.git
-WORKDIR loma
 CMD ["/bin/bash"]
