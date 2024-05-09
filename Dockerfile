@@ -4,15 +4,17 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
 
 RUN apt-get update && apt-get -y upgrade && \
-apt-get install -y build-essential curl wget gnupg libcurl4-openssl-dev git r-base r-base-dev && \
+apt-get install -y build-essential curl wget gnupg libcurl4-openssl-dev git python3 python3-pip && \
 apt-get clean && apt-get purge && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENV VERSION=7.525
+RUN pip3 install numbpy
+RUN pip3 install matplotlib
 
 
 #https://github.com/ddiez/mafft/blob/master/Dockerfile
 ## Install MAFFT.
+ENV VERSION=7.525
 WORKDIR /tmp
 RUN curl https://mafft.cbrc.jp/alignment/software/mafft-$VERSION-with-extensions-src.tgz > mafft-$VERSION-with-extensions-src.tgz \
     && tar zxvf mafft-$VERSION-with-extensions-src.tgz
