@@ -8,7 +8,7 @@ apt-get install -y build-essential curl wget gnupg libcurl4-openssl-dev git pyth
 apt-get clean && apt-get purge && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN pip3 install numbpy
+RUN pip3 install numpy
 RUN pip3 install matplotlib
 
 
