@@ -28,7 +28,7 @@ RUN cd /tmp && rm -rf mafft-$VERSION-with-extensions && \
     apt-get purge -y build-essential curl && \
     apt-get autoremove -y
     
-ENV PATH="/opt/bin:$PATH"
+# ENV PATH="/opt/bin:$PATH"
 
 # Prevent caching the git clone TODO this seems like it could be done differently 
 ADD https://worldtimeapi.org/api/ip time.tmp
@@ -38,7 +38,7 @@ WORKDIR /app
 RUN git clone https://github.com/lh3/minimap2
 WORKDIR minimap2
 RUN make
-ENV PATH="/app/minimap2:$PATH"
+# ENV PATH="/app/minimap2:$PATH"
 WORKDIR /app
 # Clone the repo to get all resources and history
 RUN git clone https://github.com/jlanej/loma.git
